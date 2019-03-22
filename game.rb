@@ -2,9 +2,9 @@
 class Game
   def initialize
     @board = [
-      [' - ', ' - ', ' - '],
-      [' - ', ' - ', ' - '],
-      [' - ', ' - ', ' - ']
+      ['   ', '   ', '   '],
+      ['   ', '   ', '   '],
+      ['   ', '   ', '   ']
     ]
 
     @turn = 1
@@ -15,15 +15,15 @@ class Game
   end
 
   def show_board
-    puts "\n      a     b     c     "
+    puts "\n      0     1     2     "
     puts '         |     |     '
-    puts '  1  ' + @board[0].join(' | ')
+    puts '  0  ' + @board[0].join(' | ')
     puts '    _____|_____|_____'
     puts '         |     |     '
-    puts '  2  ' + @board[1].join(' | ')
+    puts '  1  ' + @board[1].join(' | ')
     puts '    _____|_____|_____'
     puts '         |     |     '
-    puts '  3  ' + @board[2].join(' | ')
+    puts '  2  ' + @board[2].join(' | ')
     puts '         |     |     '
     puts ''
   end
@@ -42,7 +42,7 @@ class Game
   end
 
   def play(field)
-    if field.length == 2 && 'abc'.include?(field[0]) && '123'.include?(field[1])
+    if field.length == 2 && '012'.include?(field[0]) && '012'.include?(field[1])
       insert(field)
     else
       puts 'That field does not exist'
@@ -51,8 +51,17 @@ class Game
   end
 
   def insert(field)
-    letter = field[0]
-    number = field[1]
+    first = field[0].to_i
+    second = field[1].to_i
+
+    if @board[first][second] == '   '
+      @board[first][second] = @turn == 1 ? ' O ' : ' X '
+      @turn = @turn == 1 ? 2 : 1
+    else
+      puts 'The field is not empty.'
+    end
+
+    message
   end
 end
 
