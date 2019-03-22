@@ -24,7 +24,8 @@ class Game
     puts '    _____|_____|_____'
     puts '         |     |     '
     puts '  3  ' + @board[2].join(' | ')
-    puts "         |     |     \n"
+    puts '         |     |     '
+    puts ''
   end
 
   def message
