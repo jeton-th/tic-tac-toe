@@ -9,7 +9,6 @@ class Game
 
     @turn = 1
     @game_over = false
-    @winner = 0
 
     message
   end
@@ -31,10 +30,10 @@ class Game
   def message
     show_board
     if @game_over
-      puts "Game over. Player #{@winner} wins."
+      puts "Game over. Player #{@turn} wins."
       puts ''
     else
-      puts 'Insert field to play e.g. a1'
+      puts 'Insert field to play.'
       print "Player #{@turn}: "
       field = gets.chomp
       play(field)
@@ -57,11 +56,28 @@ class Game
     if @board[first][second] == '   '
       @board[first][second] = @turn == 1 ? ' O ' : ' X '
       @turn = @turn == 1 ? 2 : 1
+      check_winner
     else
       puts 'The field is not empty.'
     end
 
     message
+  end
+
+  def check_winner
+
+    combos = [
+      [@board[0][0], @board[0][1], @board[0][2]],
+      [@board[1][0], @board[1][1], @board[1][2]],
+      [@board[2][0], @board[2][1], @board[2][2]],
+      [@board[0][0], @board[1][0], @board[2][0]],
+      [@board[0][1], @board[1][1], @board[2][1]],
+      [@board[0][2], @board[1][2], @board[2][2]],
+      [@board[0][0], @board[1][1], @board[2][2]],
+      [@board[2][0], @board[1][1], @board[0][2]]
+    ]
+
+    @game_over = true if combos.include?([' X ', ' X ', ' X ']) || combos.include?([' O ', ' O ', ' O '])
   end
 end
 
