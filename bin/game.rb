@@ -1,22 +1,28 @@
+# Class Game is the main class
 class Game
-  require "../lib/board"
+  require '../lib/board'
+  require '../lib/message'
 
   def initialize
-    @game_over = false
     @turn = 1
+    @winner = false
+    @game_over = false
 
     @board = Board.new
-    message
+    move
   end
 
-  def message
+  def move
     @board.show_board
     if @game_over
-      puts "Game over. Player #{@turn} wins."
-      puts ""
+      if @winner
+        Message.new(:winner, @turn)
+      else
+        Message.new(:tie)
+      end
     else
-      puts "Insert field to play."
-      print "Player #{@turn}: "
+      Message.new(:instruction)
+      Message.new(:turn, @turn)
       field = gets.chomp
       play(field)
     end
@@ -26,15 +32,16 @@ class Game
     if field.length == 2 && "012".include?(field[0]) && "012".include?(field[1])
       insert = @board.insert(field, @turn)
       if insert == true
-        @turn = @turn == 1 ? 2 : 1
-        @game_over = @board.check_winner
+        @game_over = @board.game_ends
+        @winner = @board.check_winner
+        @turn = @turn == 1 ? 2 : 1 unless @game_over
       else
-        puts "The field is not empty."
+        Message.new(:not_empty)
       end
     else
-      puts "That field does not exist."
+      Message.new(:no_field)
     end
-    message
+    move
   end
 end
 
