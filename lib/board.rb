@@ -1,28 +1,29 @@
 # Tic Tac Toe Game Class
 class Board
   def initialize
-    @board = Array.new(3).map { ['   '] * 3 }
+    @board = Array.new(3).map { [nil] * 3 }
   end
 
   def show_board
+    board = @board.map(&:clone)
     puts "\n      0     1     2     "
-    @board.each_index do |i|
-      puts '         |     |     '
-      print " #{i}   #{@board[i][0].nil? ? ' ' : @board[i][0]} |"
-      print " #{@board[i][1].nil? ? ' ' : @board[i][1]} |"
-      puts " #{@board[i][2].nil? ? ' ' : @board[i][2]}"
-      puts '    _____|_____|_____' unless i == 2
+    board.each_index do |i|
+      board[i].map! { |e| e.nil? ? ' ' : e }
+      puts "         |     |     "
+      print " #{i}    #{board[i][0]}  |"
+      print "  #{board[i][1]}  |"
+      puts "  #{board[i][2]}"
+      puts "    _____|_____|_____" unless i == 2
     end
-    puts '         |     |     '
-    puts ''
+    puts "         |     |     \n "
   end
 
   def insert(field, turn)
     first = field[0].to_i
     second = field[1].to_i
 
-    if @board[first][second] == '   '
-      @board[first][second] = turn == 1 ? ' O ' : ' X '
+    if @board[first][second].nil?
+      @board[first][second] = turn == 1 ? "O" : "X"
       return true
     else
       return false
@@ -32,7 +33,7 @@ class Board
   def game_ends
     count = 0
     @board.each do |e|
-      count += 1 if e.include?('   ')
+      count += 1 if e.include?(nil)
     end
 
     count.zero? || check_winner
@@ -50,7 +51,7 @@ class Board
       [@board[2][0], @board[1][1], @board[0][2]],
     ]
 
-    combos.include?([' X ', ' X ', ' X ']) || combos.include?([' O ', ' O ', ' O '])
+    combos.include?([" X ", " X ", " X "]) || combos.include?([" O ", " O ", " O "])
   end
 end
 
