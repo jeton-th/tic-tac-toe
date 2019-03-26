@@ -9,11 +9,11 @@ class Board
     puts "\n      0     1     2     "
     board.each_index do |i|
       board[i].map! { |e| e.nil? ? ' ' : e }
-      puts "         |     |     "
+      puts '         |     |     '
       print " #{i}    #{board[i][0]}  |"
       print "  #{board[i][1]}  |"
       puts "  #{board[i][2]}"
-      puts "    _____|_____|_____" unless i == 2
+      puts '    _____|_____|_____' unless i == 2
     end
     puts "         |     |     \n "
   end
@@ -23,20 +23,20 @@ class Board
     second = field[1].to_i
 
     if @board[first][second].nil?
-      @board[first][second] = turn == 1 ? "O" : "X"
+      @board[first][second] = turn == 1 ? 'O' : 'X'
       return true
     else
       return false
     end
   end
 
-  def game_ends
+  def board_full
     count = 0
     @board.each do |e|
       count += 1 if e.include?(nil)
     end
 
-    count.zero? || check_winner
+    count.zero?
   end
 
   def check_winner
@@ -51,8 +51,6 @@ class Board
       [@board[2][0], @board[1][1], @board[0][2]],
     ]
 
-    combos.include?([" X ", " X ", " X "]) || combos.include?([" O ", " O ", " O "])
+    combos.include?(%w[X X X]) || combos.include?(%w[O O O])
   end
 end
-
-Board.new
