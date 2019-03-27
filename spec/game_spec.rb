@@ -1,5 +1,5 @@
 # Testing bin/game.rb
-require './bin/game'
+require './lib/game'
 
 RSpec.describe Game do
   describe '#move' do
