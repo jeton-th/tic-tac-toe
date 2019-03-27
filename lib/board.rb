@@ -1,14 +1,14 @@
-# Tic Tac Toe Game Class
+# Board Class
 class Board
   def initialize
     @board = Array.new(3).map { [nil] * 3 }
   end
 
   def show_board
-    board = @board.map(&:clone)
+    board = @board.map(&:clone) # make a copy of the board
     puts "\n      0     1     2     "
     board.each_index do |i|
-      board[i].map! { |e| e.nil? ? ' ' : e }
+      board[i].map! { |e| e.nil? ? ' ' : e } # replace nil with space
       puts '         |     |     '
       print " #{i}    #{board[i][0]}  |"
       print "  #{board[i][1]}  |"
