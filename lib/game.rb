@@ -1,5 +1,3 @@
-require '../lib/board'
-
 # Game Class
 class Game
   def initialize
