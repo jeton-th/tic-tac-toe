@@ -25,7 +25,7 @@ RSpec.shared_examples 'input' do |field|
   end
 
   it 'sanitizes input' do
-    expect(@game.input).to eql(field)
+    expect(@game.input(field)).to eql(field)
   end
 end
 
