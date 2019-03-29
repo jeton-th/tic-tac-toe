@@ -1,5 +1,7 @@
 # Board Class
 class Board
+  attr_accessor :board
+
   def initialize
     @board = Array.new(3).map { [nil] * 3 }
   end
@@ -48,7 +50,7 @@ class Board
       [@board[0][1], @board[1][1], @board[2][1]],
       [@board[0][2], @board[1][2], @board[2][2]],
       [@board[0][0], @board[1][1], @board[2][2]],
-      [@board[2][0], @board[1][1], @board[0][2]],
+      [@board[2][0], @board[1][1], @board[0][2]]
     ]
 
     combos.include?(%w[X X X]) || combos.include?(%w[O O O])

@@ -5,33 +5,31 @@ class Game
     @winner = false
 
     @board = Board.new
-    move
   end
 
   def move
     @board.show_board
     puts 'Insert field to play.'
     print "Player #{@turn}: "
-    input
   end
 
   def input
     input = gets.chomp
     if input.length == 2 && '012'.include?(input[0]) && '012'.include?(input[1])
-      play(input)
+      input
     else
       puts 'The field does not exist.'
-      move
+      false
     end
   end
 
   def play(input)
     insert = @board.insert(input, @turn)
     if insert
-      check_game
+      true
     else
       puts 'The field is not empty'
-      move
+      false
     end
   end
 
@@ -39,12 +37,14 @@ class Game
     if @board.check_winner
       @board.show_board
       puts "Game over. The winner is Player #{@turn}."
+      true
     elsif @board.board_full
       @board.show_board
       puts 'Game over. We have no winner.'
+      true
     else
       @turn = @turn == 1 ? 2 : 1
-      move
+      false
     end
   end
 end
