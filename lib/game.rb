@@ -13,10 +13,9 @@ class Game
     print "Player #{@turn}: "
   end
 
-  def input
-    input = gets.chomp
-    if input.length == 2 && '012'.include?(input[0]) && '012'.include?(input[1])
-      input
+  def input(field)
+    if field.length == 2 && '012'.include?(field[0]) && '012'.include?(field[1])
+      field
     else
       puts 'The field does not exist.'
       false
