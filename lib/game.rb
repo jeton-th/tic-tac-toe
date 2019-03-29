@@ -1,7 +1,5 @@
 # Game Class
 class Game
-  attr_accessor :winner
-
   def initialize
     @turn = 1
     @winner = false
@@ -39,12 +37,14 @@ class Game
     if @board.check_winner
       @board.show_board
       puts "Game over. The winner is Player #{@turn}."
-      @winner = true
+      true
     elsif @board.board_full
       @board.show_board
       puts 'Game over. We have no winner.'
+      true
     else
       @turn = @turn == 1 ? 2 : 1
+      false
     end
   end
 end
