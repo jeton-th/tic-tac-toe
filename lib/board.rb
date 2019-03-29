@@ -1,5 +1,7 @@
 # Board Class
 class Board
+  attr_accessor :board
+
   def initialize
     @board = Array.new(3).map { [nil] * 3 }
   end
