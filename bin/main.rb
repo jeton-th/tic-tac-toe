@@ -1,5 +1,5 @@
-require '../lib/game'
-require '../lib/board'
+require './lib/game'
+require './lib/board'
 
 game = Game.new
 game.start
