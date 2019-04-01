@@ -1,6 +1,6 @@
 # Board Class
 class Board
-  attr_accessor :board
+  attr_reader :board
 
   def initialize
     @board = Array.new(3).map { [nil] * 3 }
@@ -42,16 +42,13 @@ class Board
   end
 
   def check_winner
-    combos = [
-      [@board[0][0], @board[0][1], @board[0][2]],
-      [@board[1][0], @board[1][1], @board[1][2]],
-      [@board[2][0], @board[2][1], @board[2][2]],
-      [@board[0][0], @board[1][0], @board[2][0]],
-      [@board[0][1], @board[1][1], @board[2][1]],
-      [@board[0][2], @board[1][2], @board[2][2]],
-      [@board[0][0], @board[1][1], @board[2][2]],
-      [@board[2][0], @board[1][1], @board[0][2]]
-    ]
+    combos = []
+    @board.map { |row| combos << row }
+    @board.map.with_index do |row, row_idx|
+      combos << @board.map { |row| row[row_idx] }
+    end
+    combos << @board.map.with_index { |row, i| row[i] }
+    combos << @board.map.with_index { |row, i| row[row.length - 1 - i] }
 
     combos.include?(%w[X X X]) || combos.include?(%w[O O O])
   end
