@@ -7,6 +7,23 @@ class Game
     @board = Board.new
   end
 
+  def start
+    game_end = false
+
+    until game_end
+      input = false
+
+      until input
+        move # show the board and the instructions
+        field = gets.chomp
+        input = input(field) # ask for input and sanitize
+      end
+
+      play = play(input)
+      game_end = check_game if play
+    end
+  end
+
   def move
     @board.show_board
     puts 'Insert field to play.'
